@@ -20,6 +20,9 @@
               Photos
             </NuxtLink>
             <NuxtLink to="/display/todos" class="navbar-item"> Todos </NuxtLink>
+            <NuxtLink to="/display/todos?completed=true" class="navbar-item">
+              Todos
+            </NuxtLink>
           </div>
         </div>
       </div>
