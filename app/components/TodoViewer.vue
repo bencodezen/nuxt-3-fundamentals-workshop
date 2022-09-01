@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps, ref, computed } from 'vue'
+import BaseDisplay from './BaseDisplay'
 
 defineProps({
   title: {
@@ -28,7 +29,15 @@ function fetchTodoList() {
 </script>
 
 <template>
-  <div class="section">
+  <BaseDisplay title="Todo Viewer" itemType="todos" v-model:itemList="todoList">
+    <template v-slot:hero> </template>
+
+    <template v-slot:metrics>
+      {{ completedItems.length }} completed |
+      {{ remainingItems.length }} remaining
+    </template>
+  </BaseDisplay>
+  <!-- <div class="section">
     <slot name="hero" />
     <h1 class="title">{{ title }}</h1>
     <button @click="fetchTodoList">Fetch Data</button>
@@ -47,7 +56,7 @@ function fetchTodoList() {
         <input type="checkbox" :checked="todo.completed" /> {{ todo.title }}
       </li>
     </ul>
-  </div>
+  </div> -->
 </template>
 
 <style lang="scss"></style>
