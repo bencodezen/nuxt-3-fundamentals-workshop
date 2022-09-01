@@ -23,20 +23,25 @@ const remainingItems = computed(() => {
 </script>
 
 <template>
-  <BaseDisplay title="Todo Viewer" v-model:itemList="todoList">
-    <template v-slot:hero> </template>
-
-    <template v-slot:metrics>
-      {{ completedItems.length }} completed |
-      {{ remainingItems.length }} remaining
-    </template>
-
-    <template v-slot:items>
-      <li v-for="todo in filteredTodoList" :key="`todo-id-${todo.id}`">
-        <input type="checkbox" :checked="todo.completed" /> {{ todo.title }}
-      </li>
-    </template>
-  </BaseDisplay>
+  <div class="section">
+    <h1 class="title">Todo Viewer</h1>
+    <NuxtPage v-if="route.params.id" />
+    <BaseDisplay v-else title="Todo Viewer" v-model:itemList="todoList">
+      <template v-slot:hero> </template>
+      <template v-slot:metrics>
+        {{ completedItems.length }} completed |
+        {{ remainingItems.length }} remaining
+      </template>
+      <template v-slot:items>
+        <li v-for="todo in filteredTodoList" :key="`todo-id-${todo.id}`">
+          <input type="checkbox" :checked="todo.completed" />
+          <NuxtLink :to="`/display/todos/${todo.id}`">{{
+            todo.title
+          }}</NuxtLink>
+        </li>
+      </template>
+    </BaseDisplay>
+  </div>
 </template>
 
 <style lang="scss"></style>

@@ -1,6 +1,6 @@
 <script setup>
-const completedCheck = ref(boolean)
-const todoQuery = computed => `?completed=${completedCheck}`
+const completedCheck = ref(false)
+const todoQuery = computed(() => `?completed=${completedCheck}`)
 </script>
 
 <template>
