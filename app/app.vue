@@ -1,31 +1,27 @@
-<script>
-import { defineNuxtComponent } from '#app'
+<script setup>
+import { computed, ref } from 'vue'
 
-export default defineNuxtComponent({
-  data: () => ({
-    photoGallery: []
-  }),
-  computed: {
-    numberOfPhotos() {
-      return this.photoGallery.length
-    },
-    evenAlbums() {
-      return this.photoGallery.filter(item => item.albumId % 2 === 0)
-    },
-    oddAlbums() {
-      return this.photoGallery.filter(item => !(item.albumId % 2 === 0))
-    }
-  },
-  methods: {
-    fetchPhotoGallery() {
-      fetch('https://jsonplaceholder.typicode.com/photos')
-        .then(response => response.json())
-        .then(json => {
-          this.photoGallery = json
-        })
-    }
-  }
+let photoGallery = ref([])
+
+const numberOfPhotos = computed(() => {
+  return photoGallery.value.length
 })
+
+const evenAlbums = computed(() => {
+  return photoGallery.value.filter(item => item.albumId % 2 === 0)
+})
+
+const oddAlbums = computed(() => {
+  return photoGallery.value.filter(item => !(item.albumId % 2 === 0))
+})
+
+function fetchPhotoGallery() {
+  fetch('https://jsonplaceholder.typicode.com/photos')
+    .then(response => response.json())
+    .then(json => {
+      photoGallery.value = json
+    })
+}
 </script>
 
 <template>
