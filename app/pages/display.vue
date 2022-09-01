@@ -1,4 +1,9 @@
-<script setup></script>
+<script setup>
+// Todo
+// Result:
+// /display/todos
+// /display/photos
+</script>
 
 <template>
   <div class="container">
