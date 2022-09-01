@@ -22,8 +22,6 @@ function fetchPhotoGallery() {
       photoGallery.value = json
     })
 }
-
-const textModel = ref('')
 </script>
 
 <template>
