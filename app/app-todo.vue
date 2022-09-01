@@ -5,6 +5,14 @@ export default defineNuxtComponent({
   data: () => ({
     todoList: []
   }),
+  computed: {
+    completedItems() {
+      return this.todoList.filter(item => item.completed)
+    },
+    remainingItems() {
+      return this.todoList.filter(item => !item.completed)
+    }
+  },
   methods: {
     fetchTodoList() {
       fetch('https://jsonplaceholder.typicode.com/todos/')
@@ -34,6 +42,10 @@ export default defineNuxtComponent({
     </p>
     <h1>Hello Frontend Masters!</h1>
     <button @click="fetchTodoList">Fetch Data</button>
+    <p>
+      {{ completedItems.length }} completed |
+      {{ remainingItems.length }} remaining
+    </p>
     <ul>
       <li v-for="todo in todoList" :key="`todo-id-${todo.id}`">
         <input type="checkbox" :checked="todo.completed" /> {{ todo.title }}
