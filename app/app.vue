@@ -33,21 +33,32 @@ function fetchTodoList() {
       >Unsplash</a
     >
   </p>
-  <h1>Hello Frontend Masters!</h1>
+  <h1 class="heading">Hello Frontend Masters!</h1>
   <button @click="fetchTodoList">Fetch Data</button>
   <p>
     {{ completedItems.length }} completed |
     {{ remainingItems.length }} remaining
   </p>
-  <ul :class="$style.list">
+  <ul class="list">
     <li v-for="todo in todoList" :key="`todo-id-${todo.id}`">
       <input type="checkbox" :checked="todo.completed" /> {{ todo.title }}
     </li>
   </ul>
 </template>
 
-<style module>
+<style lang="scss">
+@import './assets/styles/main.scss';
+
+:root {
+  --text-color: #{$textColor};
+}
+
+.heading {
+  color: var(--text-color);
+}
+
 .list {
+  color: var(--text-color);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
