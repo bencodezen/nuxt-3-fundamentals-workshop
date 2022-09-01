@@ -1,68 +1,41 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 
-const todoList = ref([])
+let photoGallery = ref([])
 
-const completedItems = computed(() => {
-  return todoList.value.filter(item => item.completed)
+const numberOfPhotos = computed(() => {
+  return photoGallery.value.length
 })
 
-const remainingItems = computed(() => {
-  return todoList.value.filter(item => !item.completed)
+const evenAlbums = computed(() => {
+  return photoGallery.value.filter(item => item.albumId % 2 === 0)
 })
 
-function fetchTodoList() {
-  fetch('https://jsonplaceholder.typicode.com/todos/')
+const oddAlbums = computed(() => {
+  return photoGallery.value.filter(item => !(item.albumId % 2 === 0))
+})
+
+function fetchPhotoGallery() {
+  fetch('https://jsonplaceholder.typicode.com/photos')
     .then(response => response.json())
     .then(json => {
-      todoList.value = json
+      photoGallery.value = json
     })
 }
 </script>
 
 <template>
-  <div class="section">
-    <p>
-      Photo by
-      <a
-        href="https://unsplash.com/@glenncarstenspeters?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-        >Glenn Carstens-Peters</a
-      >
-      on
-      <a
-        href="https://unsplash.com/s/photos/todo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-        >Unsplash</a
-      >
-    </p>
-    <h1 class="title">Hello Frontend Masters!</h1>
-    <button @click="fetchTodoList">Fetch Data</button>
-    <p>
-      {{ completedItems.length }} completed |
-      {{ remainingItems.length }} remaining
-    </p>
-    <ul class="list">
-      <li v-for="todo in todoList" :key="`todo-id-${todo.id}`">
-        <input type="checkbox" :checked="todo.completed" /> {{ todo.title }}
-      </li>
-    </ul>
-  </div>
+  <h1>Photo Gallery</h1>
+  <button @click="fetchPhotoGallery">Fetch Data</button>
+  <p>
+    {{ numberOfPhotos }} photos ({{ oddAlbums.length }} odd albums |
+    {{ evenAlbums.length }} even albums)
+  </p>
+  <ul>
+    <li v-for="photo in photoGallery" :key="`photo-id-${photo.id}`">
+      <img :src="photo.thumbnailUrl" />
+    </li>
+  </ul>
 </template>
 
-<style lang="scss">
-@import './node_modules/bulma/bulma.sass';
-@import './assets/styles/main.scss';
-
-:root {
-  --text-color: #{$textColor};
-}
-
-.heading {
-  color: var(--text-color);
-}
-
-.list {
-  color: var(--text-color);
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-}
-</style>
+<style></style>
