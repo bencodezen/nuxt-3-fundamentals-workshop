@@ -1,5 +1,12 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { defineProps, ref, computed } from 'vue'
+
+defineProps({
+  title: {
+    type: String,
+    default: 'Hello Frontend Masters!'
+  }
+})
 
 const todoList = ref([])
 
@@ -22,24 +29,19 @@ function fetchTodoList() {
 
 <template>
   <div class="section">
-    <p>
-      Photo by
-      <a
-        href="https://unsplash.com/@glenncarstenspeters?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-        >Glenn Carstens-Peters</a
-      >
-      on
-      <a
-        href="https://unsplash.com/s/photos/todo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-        >Unsplash</a
-      >
-    </p>
-    <h1 class="title">Hello Frontend Masters!</h1>
+    <slot name="hero" />
+    <h1 class="title">{{ title }}</h1>
     <button @click="fetchTodoList">Fetch Data</button>
-    <p>
-      {{ completedItems.length }} completed |
-      {{ remainingItems.length }} remaining
-    </p>
+    <slot
+      name="metrics"
+      :completed="completedItems"
+      :remaining="remainingItems"
+    >
+      <p>
+        {{ completedItems.length }} completed |
+        {{ remainingItems.length }} remaining
+      </p>
+    </slot>
     <ul class="list">
       <li v-for="todo in todoList" :key="`todo-id-${todo.id}`">
         <input type="checkbox" :checked="todo.completed" /> {{ todo.title }}
@@ -48,21 +50,4 @@ function fetchTodoList() {
   </div>
 </template>
 
-<style lang="scss">
-@import './node_modules/bulma/bulma.sass';
-@import './assets/styles/main.scss';
-
-:root {
-  --text-color: #{$textColor};
-}
-
-.heading {
-  color: var(--text-color);
-}
-
-.list {
-  color: var(--text-color);
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-}
-</style>
+<style lang="scss"></style>

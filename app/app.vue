@@ -8,7 +8,11 @@ import TodoViewer from './components/TodoViewer'
     <div class="section">
       <div class="columns">
         <div class="column">
-          <TodoViewer />
+          <TodoViewer title="This is fun!">
+            <template v-slot:hero>
+              <h3>Whoa this worked!</h3>
+            </template>
+          </TodoViewer>
         </div>
         <div class="column">
           <PhotoGallery />
