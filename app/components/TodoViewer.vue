@@ -1,6 +1,5 @@
 <script setup>
 import { defineProps, ref, computed } from 'vue'
-import BaseDisplay from './BaseDisplay'
 
 defineProps({
   title: {
