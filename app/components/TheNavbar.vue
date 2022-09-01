@@ -1,4 +1,7 @@
-<script setup></script>
+<script setup>
+const completedCheck = ref(boolean)
+const todoQuery = computed => `?completed=${completedCheck}`
+</script>
 
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -20,8 +23,8 @@
               Photos
             </NuxtLink>
             <NuxtLink to="/display/todos" class="navbar-item"> Todos </NuxtLink>
-            <NuxtLink to="/display/todos?completed=true" class="navbar-item">
-              Todos
+            <NuxtLink to="'/display/todos' + todoQuery" class="navbar-item">
+              Completed Todos
             </NuxtLink>
           </div>
         </div>
