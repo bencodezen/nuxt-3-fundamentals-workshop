@@ -21,32 +21,35 @@ function fetchTodoList() {
 </script>
 
 <template>
-  <p>
-    Photo by
-    <a
-      href="https://unsplash.com/@glenncarstenspeters?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-      >Glenn Carstens-Peters</a
-    >
-    on
-    <a
-      href="https://unsplash.com/s/photos/todo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-      >Unsplash</a
-    >
-  </p>
-  <h1 class="heading">Hello Frontend Masters!</h1>
-  <button @click="fetchTodoList">Fetch Data</button>
-  <p>
-    {{ completedItems.length }} completed |
-    {{ remainingItems.length }} remaining
-  </p>
-  <ul class="list">
-    <li v-for="todo in todoList" :key="`todo-id-${todo.id}`">
-      <input type="checkbox" :checked="todo.completed" /> {{ todo.title }}
-    </li>
-  </ul>
+  <div class="section">
+    <p>
+      Photo by
+      <a
+        href="https://unsplash.com/@glenncarstenspeters?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+        >Glenn Carstens-Peters</a
+      >
+      on
+      <a
+        href="https://unsplash.com/s/photos/todo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+        >Unsplash</a
+      >
+    </p>
+    <h1 class="title">Hello Frontend Masters!</h1>
+    <button @click="fetchTodoList">Fetch Data</button>
+    <p>
+      {{ completedItems.length }} completed |
+      {{ remainingItems.length }} remaining
+    </p>
+    <ul class="list">
+      <li v-for="todo in todoList" :key="`todo-id-${todo.id}`">
+        <input type="checkbox" :checked="todo.completed" /> {{ todo.title }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <style lang="scss">
+@import './node_modules/bulma/bulma.sass';
 @import './assets/styles/main.scss';
 
 :root {
